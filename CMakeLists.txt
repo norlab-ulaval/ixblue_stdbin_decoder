@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.8)
 
 # Read version from package.xml file
 file(READ "${CMAKE_CURRENT_LIST_DIR}/package.xml" file_contents)
@@ -92,20 +92,21 @@ target_link_libraries(${PROJECT_NAME}
 set_target_properties(${PROJECT_NAME} PROPERTIES INSTALL_RPATH "$ORIGIN")
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_auto_type cxx_constexpr cxx_lambdas cxx_nullptr cxx_range_for)
 
-option(BUILD_STDBIN_EXAMPLES "Build examples." OFF)
-if(BUILD_STDBIN_EXAMPLES)
-    add_executable(udp_listener examples/udp_listener.cpp)
-    target_link_libraries(udp_listener ${PROJECT_NAME} ${Boost_LIBRARIES} Threads::Threads)
-    set_target_properties(udp_listener PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
-
-    add_executable(tcp_client examples/tcp_client.cpp)
-    target_link_libraries(tcp_client ${PROJECT_NAME} ${Boost_LIBRARIES} Threads::Threads)
-    set_target_properties(tcp_client PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
-
-    add_executable(serial_listener examples/serial_listener.cpp)
-    target_link_libraries(serial_listener ${PROJECT_NAME} ${Boost_LIBRARIES} Threads::Threads)
-    set_target_properties(serial_listener PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
-endif()
+# the examples were not migrated for now
+#option(BUILD_STDBIN_EXAMPLES "Build examples." OFF)
+#if(BUILD_STDBIN_EXAMPLES)
+#    add_executable(udp_listener examples/udp_listener.cpp)
+#    target_link_libraries(udp_listener ${PROJECT_NAME} ${Boost_LIBRARIES} Threads::Threads)
+#    set_target_properties(udp_listener PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+#
+#    add_executable(tcp_client examples/tcp_client.cpp)
+#    target_link_libraries(tcp_client ${PROJECT_NAME} ${Boost_LIBRARIES} Threads::Threads)
+#    set_target_properties(tcp_client PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+#
+#    add_executable(serial_listener examples/serial_listener.cpp)
+#    target_link_libraries(serial_listener ${PROJECT_NAME} ${Boost_LIBRARIES} Threads::Threads)
+#    set_target_properties(serial_listener PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+#endif()
 
 #############
 ## Install ##
@@ -156,54 +157,55 @@ install(FILES
   DESTINATION ${INSTALL_CONFIGDIR}
 )
 
-##########
-## Test ##
-##########
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
-  enable_testing()
-
-  ## --- code copied from https://crascit.com/2015/07/25/cmake-gtest/
-  # Download and unpack googletest at configure time
-  configure_file(cmake/gtest_download.cmake.in googletest-download/CMakeLists.txt)
-  execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
-  execute_process(COMMAND "${CMAKE_COMMAND}" --build .
-  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
-
-  # Add googletest directly to our build. This adds
-  # the following targets: gtest, gtest_main, gmock
-  # and gmock_main
-  add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
-  "${CMAKE_BINARY_DIR}/googletest-build")
-
-  # The gtest/gmock targets carry header search path
-  # dependencies automatically when using CMake 2.8.11 or
-  # later. Otherwise we have to add them here ourselves.
-  if(CMAKE_VERSION VERSION_LESS 2.8.11)
-    include_directories("${gtest_SOURCE_DIR}/include")
-  endif()
-
-  ## ---
-
-  ## Add gtest based cpp test target and link libraries
-  add_executable(memory_blocs_parser_navigation-test test/memory_blocs_parser_navigation.test.cc)
-  target_link_libraries(memory_blocs_parser_navigation-test ${PROJECT_NAME} ${Boost_LIBRARIES} gtest)
-  set_target_properties(memory_blocs_parser_navigation-test PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
-  add_test(NAME memory_blocs_parser_navigation_test COMMAND memory_blocs_parser_navigation-test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
-
-  add_executable(memory_blocs_parser_extended_navigation-test test/memory_blocs_parser_extended_navigation.test.cc)
-  target_link_libraries(memory_blocs_parser_extended_navigation-test ${PROJECT_NAME} ${Boost_LIBRARIES} gtest)
-  set_target_properties(memory_blocs_parser_extended_navigation-test PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
-  add_test(NAME memory_blocs_parser_extended_navigation-test COMMAND memory_blocs_parser_extended_navigation-test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
-
-  add_executable(memory_blocs_parser_external_data-test test/memory_blocs_parser_external_data.test.cc)
-  target_link_libraries(memory_blocs_parser_external_data-test ${PROJECT_NAME} ${Boost_LIBRARIES} gtest)
-  set_target_properties(memory_blocs_parser_external_data-test PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
-  add_test(NAME memory_blocs_parser_external_data-test COMMAND memory_blocs_parser_external_data-test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
-
-  add_executable(stdbin_decoder-test test/stdbin_decoder.test.cc)
-  target_link_libraries(stdbin_decoder-test ${PROJECT_NAME} ${Boost_LIBRARIES} gtest)
-  set_target_properties(stdbin_decoder-test PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
-  add_test(NAME stdbin_decoder-test COMMAND stdbin_decoder-test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
-
-endif()
+# the tests were not migrated for now
+###########
+### Test ##
+###########
+#if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
+#  enable_testing()
+#
+#  ## --- code copied from https://crascit.com/2015/07/25/cmake-gtest/
+#  # Download and unpack googletest at configure time
+#  configure_file(cmake/gtest_download.cmake.in googletest-download/CMakeLists.txt)
+#  execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+#  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
+#  execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+#  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
+#
+#  # Add googletest directly to our build. This adds
+#  # the following targets: gtest, gtest_main, gmock
+#  # and gmock_main
+#  add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
+#  "${CMAKE_BINARY_DIR}/googletest-build")
+#
+#  # The gtest/gmock targets carry header search path
+#  # dependencies automatically when using CMake 2.8.11 or
+#  # later. Otherwise we have to add them here ourselves.
+#  if(CMAKE_VERSION VERSION_LESS 2.8.11)
+#    include_directories("${gtest_SOURCE_DIR}/include")
+#  endif()
+#
+#  ## ---
+#
+#  ## Add gtest based cpp test target and link libraries
+#  add_executable(memory_blocs_parser_navigation-test test/memory_blocs_parser_navigation.test.cc)
+#  target_link_libraries(memory_blocs_parser_navigation-test ${PROJECT_NAME} ${Boost_LIBRARIES} gtest)
+#  set_target_properties(memory_blocs_parser_navigation-test PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+#  add_test(NAME memory_blocs_parser_navigation_test COMMAND memory_blocs_parser_navigation-test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
+#
+#  add_executable(memory_blocs_parser_extended_navigation-test test/memory_blocs_parser_extended_navigation.test.cc)
+#  target_link_libraries(memory_blocs_parser_extended_navigation-test ${PROJECT_NAME} ${Boost_LIBRARIES} gtest)
+#  set_target_properties(memory_blocs_parser_extended_navigation-test PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+#  add_test(NAME memory_blocs_parser_extended_navigation-test COMMAND memory_blocs_parser_extended_navigation-test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
+#
+#  add_executable(memory_blocs_parser_external_data-test test/memory_blocs_parser_external_data.test.cc)
+#  target_link_libraries(memory_blocs_parser_external_data-test ${PROJECT_NAME} ${Boost_LIBRARIES} gtest)
+#  set_target_properties(memory_blocs_parser_external_data-test PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+#  add_test(NAME memory_blocs_parser_external_data-test COMMAND memory_blocs_parser_external_data-test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
+#
+#  add_executable(stdbin_decoder-test test/stdbin_decoder.test.cc)
+#  target_link_libraries(stdbin_decoder-test ${PROJECT_NAME} ${Boost_LIBRARIES} gtest)
+#  set_target_properties(stdbin_decoder-test PROPERTIES INSTALL_RPATH "$ORIGIN/../lib")
+#  add_test(NAME stdbin_decoder-test COMMAND stdbin_decoder-test WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
+#
+#endif()

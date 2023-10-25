@@ -2,6 +2,10 @@
 Changelog for package ixblue_stdbin_decoder
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.3.0 (2023-10-24)
+------------------
+* Migrated to ROS 2 Humble.
+
 0.2.1 (2022-04-4)
 ------------------
 * Fix example in readme use wrong function.

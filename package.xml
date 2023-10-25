@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>ixblue_stdbin_decoder</name>
-  <version>0.2.1</version>
+  <version>0.3.0</version>
   <description>iXblue parsing library for protocol iXblue stdbin</description>
 
   <maintainer email="romain.reignier@ixblue.com">Romain Reignier</maintainer>
@@ -15,13 +16,9 @@
 
   <buildtool_depend>cmake</buildtool_depend>
 
-  <build_depend>libboost-dev</build_depend>
-  <build_export_depend>libboost-dev</build_export_depend>
-  <depend>libboost-system-dev</depend>
-  <exec_depend>catkin</exec_depend>
-
-  <test_depend>git</test_depend>
-  <test_depend>gtest</test_depend>
+<!--  the tests were not migrated for now -->
+<!--  <test_depend>git</test_depend>-->
+<!--  <test_depend>gtest</test_depend>-->
 
   <export>
     <build_type>cmake</build_type>
